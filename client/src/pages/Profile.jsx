@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import BACKEND_URL from '../config';
 import { AuthContext } from '../context/AuthContext';
 import { FiUser, FiMail, FiCamera, FiSave, FiBook } from 'react-icons/fi';
 
@@ -34,7 +35,7 @@ const Profile = () => {
       formData.append('skills', JSON.stringify(skills.split(',').map(s => s.trim()).filter(Boolean)));
       if (photo) formData.append('profilePicture', photo);
 
-      const res = await axios.put('http://localhost:5000/api/auth/update-profile', formData, {
+      const res = await axios.put(`${BACKEND_URL}/api/auth/update-profile`, formData, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
       });
 

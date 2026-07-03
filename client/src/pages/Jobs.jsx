@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import BACKEND_URL from '../config';
 import { FiSearch, FiMapPin, FiBriefcase, FiClock, FiExternalLink, FiGlobe, FiDatabase } from 'react-icons/fi';
 
 const logoColors = ['bg-blue-600', 'bg-yellow-500', 'bg-orange-500', 'bg-pink-500', 'bg-red-500', 'bg-purple-600', 'bg-green-600', 'bg-indigo-600', 'bg-teal-600'];
@@ -40,7 +41,7 @@ const Jobs = () => {
       let res;
       if (mode === 'live') {
         // Real jobs from LinkedIn / Indeed via Jsearch
-        res = await axios.get('http://localhost:5000/api/jobs/search', {
+        res = await axios.get(`${BACKEND_URL}/api/jobs/search`, {
           params: { q: search || 'software engineer intern', location: 'india' }
         });
       } else {
@@ -48,7 +49,7 @@ const Jobs = () => {
         const params = {};
         if (filter !== 'All') params.type = filter;
         if (search) params.search = search;
-        res = await axios.get('http://localhost:5000/api/jobs', { params });
+        res = await axios.get(`${BACKEND_URL}/api/jobs`, { params });
       }
       setJobs(res.data.data || []);
     } catch (err) {

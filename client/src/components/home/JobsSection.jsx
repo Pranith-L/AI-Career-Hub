@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import BACKEND_URL from '../../config';
 import { FiMapPin, FiExternalLink } from 'react-icons/fi';
 import { fallbackJobs } from '../../data/homeData';
 
@@ -11,7 +12,7 @@ const JobsSection = () => {
   const [jobs, setJobs] = useState(fallbackJobs);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/jobs', { params: { limit: 3 } })
+    axios.get(`${BACKEND_URL}/api/jobs`, { params: { limit: 3 } })
       .then((res) => { if (res.data.data?.length) setJobs(res.data.data.slice(0, 3)); })
       .catch(() => {});
   }, []);

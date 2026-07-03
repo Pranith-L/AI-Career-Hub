@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import BACKEND_URL from '../config';
 import { motion } from 'framer-motion';
 import { FiMic, FiVideo, FiPlayCircle, FiCheckSquare } from 'react-icons/fi';
 
@@ -14,17 +15,22 @@ const MockInterview = () => {
   const startInterview = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/interview/question', {
+      const token = localStorage.getItem('token');
+      const res = await axios.post(`${BACKEND_URL}/api/ai/interview/question`, {
         targetRole: role,
         difficulty: difficulty,
         previousQuestions: history
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       setCurrentQuestion(res.data.data.question);
       setHistory([...history, res.data.data.question]);
       setIsInterviewing(true);
     } catch (error) {
       console.error(error);
-      alert('Error generating question.');
+      alert('Error generating question. Please login and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -33,15 +39,21 @@ const MockInterview = () => {
   const nextQuestion = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/interview/question', {
+      const token = localStorage.getItem('token');
+      const res = await axios.post(`${BACKEND_URL}/api/ai/interview/question`, {
         targetRole: role,
         difficulty: difficulty,
         previousQuestions: history
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       setCurrentQuestion(res.data.data.question);
       setHistory([...history, res.data.data.question]);
     } catch (error) {
       console.error(error);
+      alert('Error generating question. Please login and try again.');
     } finally {
       setIsLoading(false);
     }

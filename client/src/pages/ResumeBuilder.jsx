@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import BACKEND_URL from '../config';
 import { motion } from 'framer-motion';
 import { FiUpload, FiFileText, FiCpu, FiCheckCircle } from 'react-icons/fi';
 
@@ -15,7 +16,7 @@ const ResumeBuilder = () => {
     setIsGenerating(true);
     try {
       // Pointing to local backend. Assuming backend runs on 5000
-      const res = await axios.post('http://localhost:5000/api/ai/resume', {
+      const res = await axios.post(`${BACKEND_URL}/api/ai/resume`, {
         currentResumeText: resumeText,
         targetJobDescription: jobDescription
       });
