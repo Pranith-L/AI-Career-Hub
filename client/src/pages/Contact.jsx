@@ -24,8 +24,8 @@ const Contact = () => {
         <div className="space-y-6">
           {[
             { icon: FiMail, title: 'Email Us', value: 'support@aicareerhub.in', color: 'blue' },
-            { icon: FiPhone, title: 'Call Us', value: '+91 98765 43210', color: 'green' },
-            { icon: FiMapPin, title: 'Our Office', value: 'Bangalore, Karnataka, India', color: 'purple' },
+            { icon: FiPhone, title: 'Call Us', value: '+91 7569940207', color: 'green' },
+            { icon: FiMapPin, title: 'Our Office', value: 'chennai, TamilNadu, India', color: 'purple' },
           ].map((item) => (
             <motion.div key={item.title} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
               className="flex items-start gap-4 bg-white rounded-2xl border border-gray-100 shadow-sm p-5"
