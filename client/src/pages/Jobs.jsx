@@ -4,6 +4,7 @@ import axios from 'axios';
 import BACKEND_URL from '../config';
 import { FiSearch, FiMapPin, FiBriefcase, FiClock, FiExternalLink, FiGlobe, FiDatabase } from 'react-icons/fi';
 
+const rapidApiKey = import.meta.env.VITE_RAPIDAPI_KEY;
 const logoColors = ['bg-blue-600', 'bg-yellow-500', 'bg-orange-500', 'bg-pink-500', 'bg-red-500', 'bg-purple-600', 'bg-green-600', 'bg-indigo-600', 'bg-teal-600'];
 
 const SkeletonCard = () => (
@@ -103,7 +104,7 @@ const Jobs = () => {
         <div className="mb-6 bg-green-50 border border-green-200 text-green-800 px-5 py-3 rounded-xl text-sm flex items-center gap-2">
           <FiGlobe className="flex-shrink-0" />
           <span>Showing real-time jobs from <strong>LinkedIn, Indeed, Glassdoor</strong> via Jsearch API. 
-            {!process.env.RAPIDAPI_KEY && ' Add your RapidAPI key in .env to enable this feature.'}
+            {!rapidApiKey && ' Add your RapidAPI key in .env to enable this feature.'}
           </span>
         </div>
       )}
