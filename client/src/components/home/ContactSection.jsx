@@ -26,8 +26,8 @@ const ContactSection = () => {
             <div className="space-y-4">
               {[
                 { icon: FiMail, label: 'support@aicareerhub.in', color: 'text-blue-600 bg-blue-50' },
-                { icon: FiPhone, label: '+91 98765 43210', color: 'text-green-600 bg-green-50' },
-                { icon: FiMapPin, label: 'Bangalore, Karnataka, India', color: 'text-purple-600 bg-purple-50' },
+                { icon: FiPhone, label: '+91 7569940207', color: 'text-green-600 bg-green-50' },
+                { icon: FiMapPin, label: 'Chennai, TamilNadu, India', color: 'text-purple-600 bg-purple-50' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center`}>
