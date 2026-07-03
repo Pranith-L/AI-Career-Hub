@@ -1,0 +1,87 @@
+[
+  {
+    "title": "Frontend Engineer Intern",
+    "company": "TechBridge Labs",
+    "location": "Bangalore, India",
+    "type": "Internship",
+    "salary": "₹15,000/month",
+    "description": "Work with our frontend team to build interactive UI components for a learning platform. You'll collaborate with designers and engineers to deliver responsive web experiences.",
+    "requirements": [
+      "Basic understanding of React and JavaScript",
+      "Familiarity with HTML/CSS",
+      "Good communication and problem-solving skills"
+    ],
+    "tags": ["React", "JavaScript", "UI", "Internship"],
+    "applyLink": "https://techbridge.example.com/apply/frontend-intern",
+    "postedAt": "2026-06-20T10:00:00.000Z",
+    "isActive": true
+  },
+  {
+    "title": "Junior Backend Developer",
+    "company": "Nexa Cloud",
+    "location": "Remote",
+    "type": "Full-time",
+    "salary": "₹35,000 - ₹45,000/month",
+    "description": "Build scalable API services and work with cloud databases. Ideal for developers with Node.js experience and a passion for building backend systems.",
+    "requirements": [
+      "Experience with Node.js and Express",
+      "Knowledge of RESTful APIs",
+      "Familiarity with MongoDB or similar NoSQL databases"
+    ],
+    "tags": ["Node.js", "Express", "MongoDB", "Remote"],
+    "applyLink": "https://nexacloud.example.com/careers/junior-backend",
+    "postedAt": "2026-06-18T09:30:00.000Z",
+    "isActive": true
+  },
+  {
+    "title": "Product Design Intern",
+    "company": "Spark Studio",
+    "location": "Mumbai, India",
+    "type": "Internship",
+    "salary": "₹12,000/month",
+    "description": "Assist in designing product interfaces and user experiences for our mobile and web applications. This role is perfect for creative students with a strong design portfolio.",
+    "requirements": [
+      "Familiarity with Figma or Adobe XD",
+      "Basic understanding of UX research methods",
+      "Strong visual design skills"
+    ],
+    "tags": ["Design", "UX", "Figma", "Internship"],
+    "applyLink": "https://sparkstudio.example.com/internships/product-design",
+    "postedAt": "2026-06-16T14:15:00.000Z",
+    "isActive": true
+  },
+  {
+    "title": "Data Analyst",
+    "company": "InsightWorks",
+    "location": "Hyderabad, India",
+    "type": "Full-time",
+    "salary": "₹40,000 - ₹55,000/month",
+    "description": "Analyze business metrics, build dashboards, and help translate data into product decisions. Strong Excel and SQL skills are required.",
+    "requirements": [
+      "Proficiency in SQL",
+      "Experience with data visualization tools",
+      "Ability to interpret and present analytical findings"
+    ],
+    "tags": ["Analytics", "SQL", "Dashboard", "Full-time"],
+    "applyLink": "https://insightworks.example.com/jobs/data-analyst",
+    "postedAt": "2026-06-14T11:00:00.000Z",
+    "isActive": true
+  },
+  {
+    "title": "React Developer",
+    "company": "PixelForge",
+    "location": "Pune, India",
+    "type": "Full-time",
+    "salary": "₹45,000 - ₹60,000/month",
+    "description": "Develop and maintain React-based web applications with a focus on performance and accessibility.",
+    "requirements": [
+      "Strong knowledge of React and hooks",
+      "Experience with state management",
+      "Understanding of frontend build tools and testing"
+    ],
+    "tags": ["React", "Frontend", "Web", "Full-time"],
+    "applyLink": "https://pixelforge.example.com/careers/react-developer",
+    "postedAt": "2026-06-12T08:45:00.000Z",
+    "isActive": true
+  }
+]
