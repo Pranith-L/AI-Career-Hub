@@ -62,7 +62,7 @@ exports.searchRealJobs = async (req, res, next) => {
 
     const options = {
       method: "GET",
-      url: "https://jsearch.p.rapidapi.com/search",
+      url: "https://letscrape-6bRBa3QguO5.p.rapidapi.com/api/search",
       params: {
         query: `${q} in ${location}`,
         page,
@@ -71,7 +71,7 @@ exports.searchRealJobs = async (req, res, next) => {
       },
       headers: {
         "x-rapidapi-key": process.env.RAPIDAPI_KEY,
-        "x-rapidapi-host": "jsearch.p.rapidapi.com",
+        "x-rapidapi-host": "letscrape-6bRBa3QguO5.p.rapidapi.com",
       },
     };
 
