@@ -62,36 +62,36 @@ exports.searchRealJobs = async (req, res, next) => {
 
     const options = {
       method: "GET",
-      url: "https://letscrape-6bRBa3QguO5.p.rapidapi.com/api/search",
+      url: "https://jsearch.p.rapidapi.com/search-v2",
       params: {
-        query: `${q} in ${location}`,
-        page,
+        query: q,
+        location,
         num_pages: "1",
         date_posted: "month",
       },
       headers: {
         "x-rapidapi-key": process.env.RAPIDAPI_KEY,
-        "x-rapidapi-host": "letscrape-6bRBa3QguO5.p.rapidapi.com",
+        "x-rapidapi-host": "jsearch.p.rapidapi.com",
       },
     };
 
     const response = await axios.request(options);
-    const jobs = response.data.data.map((job) => ({
+    const jobs = (response.data?.data?.jobs || []).map((job) => ({
       _id: job.job_id,
       title: job.job_title,
       company: job.employer_name,
       location: job.job_city
         ? `${job.job_city}, ${job.job_country}`
-        : job.job_country,
+        : job.job_country || job.job_location || location,
       type: job.job_employment_type || "Full-time",
       salary: job.job_min_salary
         ? `$${Math.floor(job.job_min_salary / 1000)}k - $${Math.floor(job.job_max_salary / 1000)}k`
-        : "Not disclosed",
+        : job.job_salary || "Not disclosed",
       description: job.job_description?.substring(0, 200) + "...",
       tags: job.job_required_skills?.slice(0, 5) || [],
-      applyLink: job.job_apply_link,
+      applyLink: job.job_apply_link || job.job_link || job.job_url,
       logo: job.employer_logo,
-      postedAt: job.job_posted_at_datetime_utc,
+      postedAt: job.job_posted_at_datetime_utc || job.job_updated_at || job.job_posted_at,
       source: job.job_publisher,
       isExternal: true,
     }));
