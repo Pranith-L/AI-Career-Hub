@@ -1,6 +1,43 @@
 const axios = require("axios");
 const Job = require("../models/Job");
 
+const fallbackToDb = async (req, res, message) => {
+  try {
+    const { q = "", type, page = 1, limit = 12 } = req.query;
+    const query = { isActive: true };
+
+    if (type && type !== "All") query.type = type;
+    if (q) {
+      query.$or = [
+        { title: { $regex: q, $options: "i" } },
+        { company: { $regex: q, $options: "i" } },
+        { tags: { $in: [new RegExp(q, "i")] } },
+      ];
+    }
+
+    const jobs = await Job.find(query)
+      .sort({ postedAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
+    const total = await Job.countDocuments(query);
+    return res.status(200).json({
+      success: true,
+      fallback: true,
+      message,
+      count: jobs.length,
+      total,
+      data: jobs,
+    });
+  } catch (err) {
+    console.error("Fallback DB load failed:", err.message || err);
+    return res.status(500).json({
+      success: false,
+      message: "Unable to load job listings at this time.",
+    });
+  }
+};
+
 // @desc    Search REAL jobs from Jsearch API (LinkedIn, Indeed, Glassdoor)
 // @route   GET /api/jobs/search?q=react&location=india
 exports.searchRealJobs = async (req, res, next) => {
@@ -16,8 +53,11 @@ exports.searchRealJobs = async (req, res, next) => {
       !process.env.RAPIDAPI_KEY ||
       process.env.RAPIDAPI_KEY === "your_rapidapi_key_here"
     ) {
-      // Fallback to our own DB jobs if no API key is set
-      return res.redirect(`/api/jobs?search=${q}`);
+      return fallbackToDb(
+        req,
+        res,
+        `RapidAPI key is not configured. Returning curated results for "${q}".`,
+      );
     }
 
     const options = {
@@ -60,11 +100,13 @@ exports.searchRealJobs = async (req, res, next) => {
   } catch (err) {
     console.error(
       "External API failed, falling back to DB. Error:",
-      err.message,
+      err.response?.data || err.message || err,
     );
-    // Fallback to our own DB jobs if external API fails (like 404/rate limits)
-    const { q = "" } = req.query;
-    return res.redirect(`/api/jobs?search=${q}`);
+    return fallbackToDb(
+      req,
+      res,
+      `Live job search unavailable: ${err.response?.data?.message || err.message || 'external API error'}. Showing curated results instead.`,
+    );
   }
 };
 

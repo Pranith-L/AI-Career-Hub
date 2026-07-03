@@ -34,10 +34,12 @@ const Jobs = () => {
   const [filter, setFilter] = useState('All');
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [mode, setMode] = useState('db'); // 'db' = our curated | 'live' = real external
 
   const fetchJobs = async () => {
     setLoading(true);
+    setError('');
     try {
       let res;
       if (mode === 'live') {
@@ -52,9 +54,14 @@ const Jobs = () => {
         if (search) params.search = search;
         res = await axios.get(`${BACKEND_URL}/api/jobs`, { params });
       }
+
+      if (res.data.fallback) {
+        setError(res.data.message || 'Live jobs are unavailable, showing curated results instead.');
+      }
       setJobs(res.data.data || []);
     } catch (err) {
       console.error('Failed to fetch jobs', err);
+      setError('Unable to load jobs right now. If Live Jobs is selected, the backend RapidAPI configuration may be invalid.');
       setJobs([]);
     } finally {
       setLoading(false);
@@ -101,11 +108,20 @@ const Jobs = () => {
 
       {/* Live Jobs Notice */}
       {mode === 'live' && (
-        <div className="mb-6 bg-green-50 border border-green-200 text-green-800 px-5 py-3 rounded-xl text-sm flex items-center gap-2">
-          <FiGlobe className="flex-shrink-0" />
-          <span>Showing real-time jobs from <strong>LinkedIn, Indeed, Glassdoor</strong> via Jsearch API. 
-            {!rapidApiKey && ' Add your RapidAPI key in .env to enable this feature.'}
-          </span>
+        <div className="mb-6 bg-green-50 border border-green-200 text-green-800 px-5 py-3 rounded-xl text-sm flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <FiGlobe className="flex-shrink-0" />
+            <span>Showing real-time jobs from <strong>LinkedIn, Indeed, Glassdoor</strong> via Jsearch API.</span>
+          </div>
+          <div className="text-sm text-green-800">
+            {!rapidApiKey && 'Add VITE_RAPIDAPI_KEY to your frontend environment variables. The backend also requires RAPIDAPI_KEY for live job search.'}
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="mb-6 bg-red-50 border border-red-200 text-red-800 px-5 py-3 rounded-xl text-sm">
+          {error}
         </div>
       )}
 
