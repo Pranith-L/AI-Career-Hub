@@ -2,7 +2,7 @@ services:
   - type: web
     name: ai-careerhub-backend
     env: node
-    buildCommand: npm install --legacy-peer-deps
+    buildCommand: npm install --legacy-peer-deps && npm run seed-admin
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
